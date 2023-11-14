@@ -1,19 +1,21 @@
 import { getApp, getApps, initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore/lite";
+import { getDatabase } from "firebase/database";
 
-const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_apiKey,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_authDomain,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_projectId,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_storageBucket,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_messagingSenderId,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_appId,
-  measurementId: process.env.NEXT_PUBLIC_FIREBASE_measurementId,
+const FirebaseConfig = () => {
+  const firebaseConfig = {
+    apiKey: process.env.NEXT_PUBLIC_FIREBASE_apiKey,
+    authDomain: process.env.NEXT_PUBLIC_FIREBASE_authDomain,
+    projectId: process.env.NEXT_PUBLIC_FIREBASE_projectId,
+    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_storageBucket,
+    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_messagingSenderId,
+    appId: process.env.NEXT_PUBLIC_FIREBASE_appId,
+    measurementId: process.env.NEXT_PUBLIC_FIREBASE_measurementId,
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+  return db;
 };
 
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-const db = getFirestore(app);
-const auth = getAuth(app);
-
-export { app, auth, db };
+export default FirebaseConfig;

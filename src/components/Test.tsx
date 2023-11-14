@@ -1,6 +1,5 @@
 "use client";
-import firestore from "../utils/firestore";
-import { collection, addDoc } from "firebase/firestore";
+
 import { useState } from "react";
 
 export default function Home() {
@@ -10,12 +9,8 @@ export default function Home() {
     const data = {
       title: value,
       createdAt: new Date(),
-      useId: "AUserId",
+      useId: "AUserId AUserId AUserId AUserId",
     };
-    console.log(data);
-    await addDoc(collection(firestore, `main`), {
-      ...data,
-    });
   };
 
   return (
