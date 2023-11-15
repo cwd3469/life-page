@@ -11,6 +11,11 @@ export default function Home() {
       createdAt: new Date(),
       useId: "AUserId AUserId AUserId AUserId",
     };
+    const data2 = {
+      title: value,
+      createdAt: new Date(),
+      useId: "AUserId AUserId AUserId AUserId",
+    };
   };
 
   return (
