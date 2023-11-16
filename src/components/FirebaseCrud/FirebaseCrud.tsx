@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
+import { collection, addDoc } from "firebase/firestore";
 import FirebaseConfig from "@/utils/firebase";
-import { ref, set, get, update, remove, child } from "firebase/database";
-const dataBase = FirebaseConfig();
+const { db } = FirebaseConfig();
 
 type KeyValue = { [key: string]: string };
 
@@ -22,60 +22,22 @@ const FirebaseCrud = () => {
     return arr;
   };
   const useInfoArr = forInArr(userName);
-  const isNullOrWhiteSpace = (value: string) => {
-    value = value.toString();
-    return value === null || value.replaceAll("", "").length < 1;
-  };
-  const InsertData = () => {
-    let nullCheck = false;
-    for (let i = 0; i < useInfoArr.length; i++) {
-      const element = useInfoArr[i];
-      if (isNullOrWhiteSpace(element.name)) {
-        nullCheck = true;
-      }
-    }
-    if (nullCheck) {
-      alert("fill all the fields");
-      return;
-    }
-    set(ref(dataBase, "Customer/" + userName["userName"]), {
-      fullName: userName["fullName"],
-      phone: userName["phone"],
-      dob: userName["dob"],
-    });
-  };
-
-  const selectData = () => {
-    const dbRef = ref(dataBase);
-    get(child(dbRef, "Customer/" + userName["userName"]))
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          setUserName((prev) => {
-            prev = { ...prev, ["fullName"]: snapshot.val().fullName };
-            prev = { ...prev, ["phone"]: snapshot.val().phone };
-            prev = { ...prev, ["dob"]: snapshot.val().dob };
-
-            return prev;
-          });
-        } else {
-          alert("no data available");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        alert("Error data retrieval was unsuccessful");
-      });
-  };
-
   const userInfoOnChange = (key: string, value: string) => {
     setUserName((prev) => {
       return { ...prev, [key]: value };
     });
   };
 
-  useEffect(() => {
-    console.log(userName);
-  }, [userName]);
+  const setData = async () => {
+    console.log("ehla?");
+    const docRef = await addDoc(collection(db, "Customer"), {
+      userName: userName.userName,
+      fullName: userName.fullName,
+      phone: userName.phone,
+      dob: userName.dob,
+    });
+    console.log(docRef);
+  };
 
   return (
     <div className="flex flex-col gap-2 p-10">
@@ -103,15 +65,9 @@ const FirebaseCrud = () => {
       <div className="flex flex-row gap=2">
         <button
           className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          onClick={() => selectData()}
+          onClick={() => setData()}
         >
-          selectData
-        </button>
-        <button
-          className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          onClick={() => InsertData()}
-        >
-          InsertData
+          로그인
         </button>
       </div>
     </div>
