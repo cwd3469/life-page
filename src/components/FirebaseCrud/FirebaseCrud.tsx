@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs, DocumentData } from "firebase/firestore";
 import FirebaseConfig from "@/utils/firebase";
 const { db } = FirebaseConfig();
 
@@ -14,6 +14,7 @@ const FirebaseCrud = () => {
     dob: "",
   };
   const [userName, setUserName] = useState<KeyValue>(reArr);
+  const [arr, setCurrentItems] = useState<{ id: string }[]>([]);
   const forInArr = (obj: KeyValue) => {
     const arr: { name: string; value: string }[] = [];
     for (var prop in obj) {
@@ -29,7 +30,6 @@ const FirebaseCrud = () => {
   };
 
   const setData = async () => {
-    console.log("ehla?");
     const docRef = await addDoc(collection(db, "Customer"), {
       userName: userName.userName,
       fullName: userName.fullName,
@@ -38,6 +38,19 @@ const FirebaseCrud = () => {
     });
     console.log(docRef);
   };
+
+  const getData = async () => {
+    const querySnapshot = await getDocs(collection(db, "Customer"));
+    console.log(querySnapshot);
+    const newData = querySnapshot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+    setCurrentItems(newData);
+  };
+  useEffect(() => {
+    console.log(arr);
+  }, [arr]);
 
   return (
     <div className="flex flex-col gap-2 p-10">
@@ -68,6 +81,12 @@ const FirebaseCrud = () => {
           onClick={() => setData()}
         >
           로그인
+        </button>
+        <button
+          className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          onClick={() => getData()}
+        >
+          get
         </button>
       </div>
     </div>
