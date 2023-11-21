@@ -16,7 +16,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <div className="absolute top-1/2 left-1/2 -translate-x-2/4	-translate-y-2/4 ">
+          {children}
+        </div>
+      </body>
     </html>
   );
 }
