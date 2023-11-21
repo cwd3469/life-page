@@ -53,7 +53,7 @@ const FirebaseCrud = () => {
   }, [arr]);
 
   return (
-    <div className="flex flex-col gap-2 p-10">
+    <div className="flex flex-col gap-2 p-10 ">
       {useInfoArr.map((el, index) => {
         return (
           <div key={index}>
