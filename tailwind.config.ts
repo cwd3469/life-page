@@ -7,21 +7,6 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    colors: {
-      gray: {
-        50: "#FAFAFA",
-        100: "#F5F5F5",
-        200: "#EEEEEE",
-        300: "#E0E0E0",
-        400: "#BDBDBD",
-        500: "#9E9E9E",
-        600: "#757575",
-        700: "#616161",
-      },
-      black: {
-        500: "#333",
-      },
-    },
     screens: {
       sm: "640px",
       md: "768px",
@@ -80,6 +65,16 @@ const config: Config = {
           50: "#FFF3F4",
           300: "#FF6560",
           400: "#EE2C23",
+        },
+        wGray: {
+          50: "#FAFAFA",
+          100: "#F5F5F5",
+          200: "#EEEEEE",
+          300: "#E0E0E0",
+          400: "#BDBDBD",
+          500: "#9E9E9E",
+          600: "#757575",
+          700: "#616161",
         },
       },
       spacing: {
