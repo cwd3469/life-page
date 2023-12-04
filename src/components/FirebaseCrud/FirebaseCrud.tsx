@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { collection, addDoc, getDocs, DocumentData } from "firebase/firestore";
 import FirebaseConfig from "@/utils/firebase";
+import LPButton from "../common/LPButton";
 const { db } = FirebaseConfig();
 
 type KeyValue = { [key: string]: string };
@@ -76,18 +77,8 @@ const FirebaseCrud = () => {
         );
       })}
       <div className="flex flex-row gap=2">
-        <button
-          className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          onClick={() => setData()}
-        >
-          로그인
-        </button>
-        <button
-          className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          onClick={() => getData()}
-        >
-          get
-        </button>
+        <LPButton onClick={() => setData()}>로그인</LPButton>
+        <LPButton onClick={() => getData()}>get</LPButton>
       </div>
     </div>
   );
