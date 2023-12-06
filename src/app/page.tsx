@@ -1,9 +1,9 @@
-import FirebaseCrud from "@/components/FirebaseCrud/FirebaseCrud";
+import FirebaseCrud from '@/components/FirebaseCrud/FirebaseCrud';
 
 export default function Home() {
-  return (
-    <main>
-      <FirebaseCrud />
-    </main>
-  );
+    return (
+        <main>
+            <FirebaseCrud />
+        </main>
+    );
 }
